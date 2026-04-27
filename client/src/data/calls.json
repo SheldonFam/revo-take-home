@@ -1,0 +1,10 @@
+[
+  { "id": "c1", "flow": "Payment processing",  "subscription": "00m 28s", "occurredAt": "2026-04-27T14:32:00Z", "status": "success" },
+  { "id": "c2", "flow": "Room service request","subscription": "1m 15s",  "occurredAt": "2026-04-27T14:18:00Z", "status": "hang_up" },
+  { "id": "c3", "flow": "Table reservation",   "subscription": "3m 44s",  "occurredAt": "2026-04-27T13:51:00Z", "status": "success" },
+  { "id": "c4", "flow": "Food delivery",       "subscription": "2m 03s",  "occurredAt": "2026-04-27T13:22:00Z", "status": "success" },
+  { "id": "c5", "flow": "Table reservation",   "subscription": "3m 30s",  "occurredAt": "2026-04-27T12:58:00Z", "status": "success" },
+  { "id": "c6", "flow": "Food delivery",       "subscription": "8m 20s",  "occurredAt": "2026-04-27T12:40:00Z", "status": "success" },
+  { "id": "c7", "flow": "Food delivery",       "subscription": "4m 22s",  "occurredAt": "2026-04-27T12:08:00Z", "status": "success" },
+  { "id": "c8", "flow": "Table reservation",   "subscription": "00m 48s", "occurredAt": "2026-04-27T11:52:00Z", "status": "hang_up" }
+]

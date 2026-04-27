@@ -1,0 +1,66 @@
+{
+  "summary": [
+    { "key": "activeUsers",      "label": "Active Users",      "value": 87, "trendPct": 12,  "subLabel": "calls" },
+    { "key": "freeCoordinates",  "label": "Free Coordinates",  "value": 18, "trendPct": 6,   "subLabel": "calls" },
+    { "key": "promptProcessing", "label": "Prompt Processing", "value": 8,  "trendPct": -2,  "subLabel": "calls" },
+    { "key": "retryLinks",       "label": "Retry Links",       "value": 3,  "trendPct": 1,   "subLabel": "calls" }
+  ],
+  "flowDistribution": [
+    { "flow": "Food delivery",      "pct": 0.46, "color": "hsl(var(--chart-1))" },
+    { "flow": "Table reservation",  "pct": 0.28, "color": "hsl(var(--chart-2))" },
+    { "flow": "Payment processing", "pct": 0.18, "color": "hsl(var(--chart-3))" },
+    { "flow": "Other flows",        "pct": 0.08, "color": "hsl(var(--chart-4))" }
+  ],
+  "callDistribution": [
+    { "day": "Mon", "hourly": [1,2,3,2,4,6,8,9,7,5,4,3,2,2,3,4,5,6,7,8,7,5,3,2] },
+    { "day": "Tue", "hourly": [2,3,4,3,5,7,9,10,8,6,5,4,3,3,4,5,6,7,8,9,8,6,4,3] },
+    { "day": "Wed", "hourly": [1,2,3,2,4,6,8,9,7,5,4,3,2,2,3,4,5,6,7,8,7,5,3,2] },
+    { "day": "Thu", "hourly": [3,4,5,4,6,8,10,11,9,7,6,5,4,4,5,6,7,8,9,10,9,7,5,4] },
+    { "day": "Fri", "hourly": [2,3,4,3,5,7,9,10,8,6,5,4,3,3,4,5,6,7,8,9,8,6,4,3] },
+    { "day": "Sat", "hourly": [1,2,3,2,4,6,8,9,7,5,4,3,2,2,3,4,5,6,7,8,7,5,3,2] },
+    { "day": "Sun", "hourly": [1,1,2,2,3,4,5,6,5,4,3,2,2,2,3,3,4,5,5,6,5,4,3,2] }
+  ],
+  "callsHandled": {
+    "today": [
+      { "date": "2026-04-27T08:00:00Z", "successful": 12, "unsuccessful": 2 },
+      { "date": "2026-04-27T10:00:00Z", "successful": 18, "unsuccessful": 3 },
+      { "date": "2026-04-27T12:00:00Z", "successful": 22, "unsuccessful": 4 },
+      { "date": "2026-04-27T14:00:00Z", "successful": 28, "unsuccessful": 5 },
+      { "date": "2026-04-27T16:00:00Z", "successful": 24, "unsuccessful": 4 },
+      { "date": "2026-04-27T18:00:00Z", "successful": 19, "unsuccessful": 2 }
+    ],
+    "7d": [
+      { "date": "2026-04-21", "successful": 110, "unsuccessful": 18 },
+      { "date": "2026-04-22", "successful": 124, "unsuccessful": 21 },
+      { "date": "2026-04-23", "successful": 132, "unsuccessful": 19 },
+      { "date": "2026-04-24", "successful": 145, "unsuccessful": 23 },
+      { "date": "2026-04-25", "successful": 138, "unsuccessful": 24 },
+      { "date": "2026-04-26", "successful": 121, "unsuccessful": 17 },
+      { "date": "2026-04-27", "successful": 143, "unsuccessful": 22 }
+    ],
+    "30d": [
+      { "date": "2026-04-01", "successful": 95,  "unsuccessful": 14 },
+      { "date": "2026-04-04", "successful": 102, "unsuccessful": 16 },
+      { "date": "2026-04-07", "successful": 118, "unsuccessful": 19 },
+      { "date": "2026-04-10", "successful": 124, "unsuccessful": 20 },
+      { "date": "2026-04-13", "successful": 131, "unsuccessful": 21 },
+      { "date": "2026-04-16", "successful": 128, "unsuccessful": 22 },
+      { "date": "2026-04-19", "successful": 136, "unsuccessful": 18 },
+      { "date": "2026-04-22", "successful": 124, "unsuccessful": 21 },
+      { "date": "2026-04-25", "successful": 138, "unsuccessful": 24 },
+      { "date": "2026-04-27", "successful": 143, "unsuccessful": 22 }
+    ]
+  },
+  "duration": {
+    "totalSeconds": 98,
+    "byDay": [
+      { "day": "Mon", "seconds": 64 },
+      { "day": "Tue", "seconds": 78 },
+      { "day": "Wed", "seconds": 55 },
+      { "day": "Thu", "seconds": 98 },
+      { "day": "Fri", "seconds": 71 },
+      { "day": "Sat", "seconds": 42 },
+      { "day": "Sun", "seconds": 38 }
+    ]
+  }
+}
