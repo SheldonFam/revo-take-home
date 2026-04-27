@@ -9,7 +9,7 @@ const TABS = [
   { to: '/knowledge', label: 'Knowledge' },
   { to: '/integrations', label: 'Integrations' },
   { to: '/analytics', label: 'Analytics' },
-  { to: '/tool', label: 'Tool' },
+  { to: '/test', label: 'Test' },
 ] as const;
 
 export function TopNav() {
@@ -22,8 +22,10 @@ export function TopNav() {
             to={to}
             className={({ isActive }) =>
               cn(
-                'rounded-md px-3 py-1.5 text-sm transition-colors',
-                isActive ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground',
+                'rounded-lg px-4 py-1.5 text-sm font-medium transition-colors',
+                isActive
+                  ? 'border border-border bg-card text-foreground shadow-sm'
+                  : 'border border-transparent text-muted-foreground hover:text-foreground',
               )
             }
           >
@@ -33,11 +35,11 @@ export function TopNav() {
       </nav>
 
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="sm" className="gap-2">
+        <Button variant="outline" size="sm" className="gap-2">
           <Search className="h-4 w-4" />
           <span>Search</span>
         </Button>
-        <Button variant="ghost" size="sm" className="gap-2">
+        <Button variant="outline" size="sm" className="gap-2">
           <Share2 className="h-4 w-4" />
           <span>Share</span>
         </Button>
@@ -45,15 +47,6 @@ export function TopNav() {
           <Send className="h-4 w-4" />
           <span>Publish</span>
         </Button>
-        <div className="ml-2 flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-            TD
-          </div>
-          <div className="hidden text-right md:block">
-            <div className="text-xs font-medium leading-tight">Tasha Dervis</div>
-            <div className="text-[10px] leading-tight text-muted-foreground">tasha@revolab.ai</div>
-          </div>
-        </div>
       </div>
     </header>
   );

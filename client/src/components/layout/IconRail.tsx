@@ -21,7 +21,7 @@ const ITEMS = [
   { icon: BookOpen, label: 'Knowledge' },
   { icon: Plug, label: 'Integrations' },
   { icon: BarChart3, label: 'Analytics' },
-  { icon: Wrench, label: 'Tool' },
+  { icon: Wrench, label: 'Test' },
   { icon: Settings, label: 'Settings' },
 ] as const;
 

@@ -15,7 +15,7 @@ export const routes: RouteObject[] = [
       { path: 'knowledge', element: <ComingSoonPage /> },
       { path: 'integrations', element: <ComingSoonPage /> },
       { path: 'analytics', element: <ComingSoonPage /> },
-      { path: 'tool', element: <ComingSoonPage /> },
+      { path: 'test', element: <ComingSoonPage /> },
       { path: '*', element: <Navigate to="/dashboard" replace /> },
     ],
   },

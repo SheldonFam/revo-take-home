@@ -18,9 +18,9 @@ const PAGES = {
     title: 'Analytics',
     blurb: 'Deeper reporting beyond the dashboard.',
   },
-  '/tool': {
+  '/test': {
     icon: Wrench,
-    title: 'Tool',
+    title: 'Test',
     blurb: 'Operator utilities and tuning.',
   },
 } as const;
