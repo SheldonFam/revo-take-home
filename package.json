@@ -1,0 +1,18 @@
+{
+  "name": "revolab",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "dev": "pnpm --filter client dev",
+    "build": "pnpm --filter client build",
+    "lint": "pnpm --filter client lint",
+    "typecheck": "pnpm --filter client typecheck",
+    "format": "pnpm --filter client format",
+    "preview": "pnpm --filter client preview"
+  }
+}

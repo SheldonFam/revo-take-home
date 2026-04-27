@@ -1,0 +1,32 @@
+# deps
+node_modules
+.pnpm-store
+
+# build
+dist
+build
+*.tsbuildinfo
+
+# env
+.env
+.env.*
+!.env.example
+
+# editor / OS
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# Claude Code session data
+.claude/
+
+# AI-assisted planning artifacts (not part of submission)
+CLAUDE.md
+docs/superpowers/
