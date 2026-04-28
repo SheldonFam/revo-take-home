@@ -30,3 +30,7 @@ yarn-debug.log*
 # AI-assisted planning artifacts (not part of submission)
 CLAUDE.md
 docs/superpowers/
+
+# server runtime persistence (writable)
+server/data/*
+!server/data/.gitkeep
