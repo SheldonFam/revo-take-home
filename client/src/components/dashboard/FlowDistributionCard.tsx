@@ -14,10 +14,15 @@ import {
 import { CardShell } from './CardShell';
 import { formatPercent } from '@/lib/format';
 
-const RANGES = ['Week · 12–19 Jul 2025', 'Week · 5–11 Jul 2025'] as const;
+const RANGES = [
+  { key: '2025-W29', label: 'Week · 12–19 Jul 2025' },
+  { key: '2025-W28', label: 'Week · 5–11 Jul 2025' },
+] as const;
+
+type RangeKey = (typeof RANGES)[number]['key'];
 
 export function FlowDistributionCard() {
-  const [range, setRange] = useState<(typeof RANGES)[number]>(RANGES[0]);
+  const [range, setRange] = useState<RangeKey>(RANGES[0].key);
   const state = useAsync(() => api.getFlowDistribution(range), [range]);
 
   const slices = useMemo(() => (state.status === 'ready' ? state.data : []), [state]);
@@ -27,7 +32,7 @@ export function FlowDistributionCard() {
       title="Flows Distribution"
       className="col-span-6"
       action={
-        <Select value={range} onValueChange={(v) => setRange(v as (typeof RANGES)[number])}>
+        <Select value={range} onValueChange={(v) => setRange(v as RangeKey)}>
           <SelectTrigger className="h-9 w-[220px] text-sm">
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
@@ -36,8 +41,8 @@ export function FlowDistributionCard() {
           </SelectTrigger>
           <SelectContent>
             {RANGES.map((r) => (
-              <SelectItem key={r} value={r}>
-                {r}
+              <SelectItem key={r.key} value={r.key}>
+                {r.label}
               </SelectItem>
             ))}
           </SelectContent>

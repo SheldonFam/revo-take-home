@@ -13,10 +13,15 @@ import {
 } from '@/components/ui/select';
 import { CardShell } from './CardShell';
 
-const WEEKS = ['Week · 20–26 Apr 2026', 'Week · 13–19 Apr 2026'] as const;
+const WEEKS = [
+  { key: '2026-W17', label: 'Week · 20–26 Apr 2026' },
+  { key: '2026-W16', label: 'Week · 13–19 Apr 2026' },
+] as const;
+
+type WeekKey = (typeof WEEKS)[number]['key'];
 
 export function TotalDurationCard() {
-  const [week, setWeek] = useState<(typeof WEEKS)[number]>(WEEKS[0]);
+  const [week, setWeek] = useState<WeekKey>(WEEKS[0].key);
   const state = useAsync(() => api.getTotalDuration(week), [week]);
 
   const peak = useMemo(() => {
@@ -29,14 +34,14 @@ export function TotalDurationCard() {
       title="Total Duration"
       className="col-span-6"
       action={
-        <Select value={week} onValueChange={(v) => setWeek(v as (typeof WEEKS)[number])}>
+        <Select value={week} onValueChange={(v) => setWeek(v as WeekKey)}>
           <SelectTrigger className="h-8 w-[180px] text-xs">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {WEEKS.map((w) => (
-              <SelectItem key={w} value={w}>
-                {w}
+              <SelectItem key={w.key} value={w.key}>
+                {w.label}
               </SelectItem>
             ))}
           </SelectContent>

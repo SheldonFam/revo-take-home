@@ -58,13 +58,14 @@ function CanvasInner() {
     );
   }, [workflow]);
 
+  const workflowId = workflow?.id;
   useEffect(() => {
-    if (!workflow) return;
+    if (!workflowId) return;
     const id = requestAnimationFrame(() => {
       fitView({ padding: 0.2, duration: 0 });
     });
     return () => cancelAnimationFrame(id);
-  }, [workflow, fitView]);
+  }, [workflowId, fitView]);
 
   const handleNodeClick: NodeMouseHandler = (_, node) => {
     selectStep(node.id);

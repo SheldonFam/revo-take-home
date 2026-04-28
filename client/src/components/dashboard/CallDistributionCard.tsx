@@ -11,13 +11,18 @@ import {
 } from '@/components/ui/select';
 import { CardShell } from './CardShell';
 
-const RANGES = ['Month · Jun-Jul 2025', 'Month · May-Jun 2025'] as const;
+const RANGES = [
+  { key: '2025-06', label: 'Month · Jun-Jul 2025' },
+  { key: '2025-05', label: 'Month · May-Jun 2025' },
+] as const;
+
+type RangeKey = (typeof RANGES)[number]['key'];
 
 // Show business hours only — 9:00 through 17:00 inclusive
 const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
 export function CallDistributionCard() {
-  const [range, setRange] = useState<(typeof RANGES)[number]>(RANGES[0]);
+  const [range, setRange] = useState<RangeKey>(RANGES[0].key);
   const state = useAsync(() => api.getCallDistribution(range), [range]);
 
   const max = useMemo(() => {
@@ -33,17 +38,14 @@ export function CallDistributionCard() {
       title="Call Distribution"
       className="col-span-6"
       action={
-        <Select
-          value={range}
-          onValueChange={(v) => setRange(v as (typeof RANGES)[number])}
-        >
+        <Select value={range} onValueChange={(v) => setRange(v as RangeKey)}>
           <SelectTrigger className="h-8 w-[180px] text-xs">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {RANGES.map((r) => (
-              <SelectItem key={r} value={r}>
-                {r}
+              <SelectItem key={r.key} value={r.key}>
+                {r.label}
               </SelectItem>
             ))}
           </SelectContent>
