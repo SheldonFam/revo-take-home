@@ -1,12 +1,12 @@
-import { Handle, Position, type NodeProps } from '@xyflow/react';
+import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
 import { cn } from '@/lib/utils';
 import type { Step } from '@/types';
 import { nodeVisual } from './nodeIcon';
 
-type TriggerNodeData = { step: Step };
+export type TriggerNodeType = Node<{ step: Step }, 'trigger'>;
 
-export function TriggerNode({ data, selected }: NodeProps<{ data: TriggerNodeData }>) {
-  const step = (data as TriggerNodeData).step;
+export function TriggerNode({ data, selected }: NodeProps<TriggerNodeType>) {
+  const { step } = data;
   const { Icon, tone } = nodeVisual(step);
 
   return (

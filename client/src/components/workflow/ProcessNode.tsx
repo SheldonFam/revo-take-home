@@ -1,11 +1,11 @@
-import { Handle, Position, type NodeProps } from '@xyflow/react';
+import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
 import type { Step } from '@/types';
 import { StepCard } from './StepCard';
 
-type ProcessNodeData = { step: Step };
+export type ProcessNodeType = Node<{ step: Step }, 'process'>;
 
-export function ProcessNode({ data, selected }: NodeProps<{ data: ProcessNodeData }>) {
-  const step = (data as ProcessNodeData).step;
+export function ProcessNode({ data, selected }: NodeProps<ProcessNodeType>) {
+  const { step } = data;
   const hasOutgoing = step.connections.length > 0;
   return (
     <>
