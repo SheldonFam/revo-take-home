@@ -84,7 +84,7 @@ export function CallDistributionCard() {
                     <div
                       key={`${day.day}-${h}`}
                       className="h-6 rounded-md bg-chart-1"
-                      style={{ opacity: 0.18 + intensity * 0.82 }}
+                      style={{ opacity: 0.25 + intensity * 0.75 }}
                       title={`${day.day} ${h}:00 — ${value} calls`}
                     />
                   );

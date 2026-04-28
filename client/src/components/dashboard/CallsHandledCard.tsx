@@ -22,10 +22,10 @@ import {
 import { CardShell } from './CardShell';
 import type { CallsHandledRange } from '@/types';
 
-const RANGES: { value: CallsHandledRange; label: string }[] = [
-  { value: 'today', label: 'Today' },
-  { value: '7d', label: 'Last 7 days' },
-  { value: '30d', label: 'Last 30 days' },
+const RANGES: { value: CallsHandledRange; label: string; sublabel: string }[] = [
+  { value: 'today', label: 'Today', sublabel: 'calls today' },
+  { value: '7d', label: 'Last 7 days', sublabel: 'calls last 7 days' },
+  { value: '30d', label: 'Last 30 days', sublabel: 'calls last 30 days' },
 ];
 
 export function CallsHandledCard() {
@@ -36,6 +36,8 @@ export function CallsHandledCard() {
     if (state.status !== 'ready') return 0;
     return state.data.reduce((acc, d) => acc + d.successful + d.unsuccessful, 0);
   }, [state]);
+
+  const sublabel = RANGES.find((r) => r.value === range)?.sublabel ?? '';
 
   return (
     <CardShell
@@ -62,7 +64,7 @@ export function CallsHandledCard() {
         <>
           <div className="mb-2 flex items-baseline gap-3">
             <div className="text-3xl font-semibold tabular-nums">{total}</div>
-            <div className="text-xs text-muted-foreground">Calls in range</div>
+            <div className="text-xs text-muted-foreground">{sublabel}</div>
           </div>
           <div className="mb-3 flex items-center gap-4 text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">

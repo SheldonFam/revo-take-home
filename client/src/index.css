@@ -9,8 +9,12 @@
     --foreground: 0 0% 96%;
     --card: 240 24% 11%;
     --card-foreground: 0 0% 96%;
+    --popover: 240 24% 13%;
+    --popover-foreground: 0 0% 96%;
     --muted: 240 20% 16%;
     --muted-foreground: 240 12% 60%;
+    --accent: 240 22% 18%;
+    --accent-foreground: 0 0% 96%;
     --border: 240 18% 20%;
     --input: 240 18% 20%;
     --primary: 252 82% 65%;

@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select';
 import { CardShell } from './CardShell';
 
-const WEEKS = ['Week 14-20 of 2026', 'Week 7-13 of 2026'] as const;
+const WEEKS = ['Week · 20–26 Apr 2026', 'Week · 13–19 Apr 2026'] as const;
 
 export function TotalDurationCard() {
   const [week, setWeek] = useState<(typeof WEEKS)[number]>(WEEKS[0]);
@@ -51,7 +51,7 @@ export function TotalDurationCard() {
             <div className="text-3xl font-semibold tabular-nums">
               {state.data.totalSeconds}s
             </div>
-            <div className="text-xs text-muted-foreground">peak this week</div>
+            <div className="text-xs text-muted-foreground">this week</div>
           </div>
           <div className="h-28">
             <ResponsiveContainer width="100%" height="100%">

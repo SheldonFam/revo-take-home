@@ -42,7 +42,7 @@
       "id": "step_ineligible",
       "kind": "process",
       "title": "Handle Ineligible Caller",
-      "description": "Politely inform the caller that they are not eligible without using technical or negative language, and provide guidance on what they can do next.",
+      "description": "Politely inform the caller that they are not eligible at this time, explain the reason clearly without using technical or negative language, and provide guidance on what they can do next.\n\nThe agent should de-escalate, acknowledge the caller's concerns, and offer clear next steps before closing the call.",
       "position": { "x": 720, "y": 160 },
       "primaryOutcome": { "label": "Politely decline and close the call", "icon": "PhoneOff" },
       "secondaryOutcome": { "label": "Escalate to human agent", "icon": "UserPlus" },

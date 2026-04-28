@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useWorkflowStore } from '@/stores/workflow';
@@ -202,15 +202,29 @@ function StepNameField({ stepId, value }: StepFieldProps) {
 function DescriptionField({ stepId, value }: StepFieldProps) {
   const updateStep = useWorkflowStore((s) => s.updateStep);
   const [draft, setDraft] = useState(value);
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const fit = () => {
+      el.style.height = 'auto';
+      el.style.height = `${el.scrollHeight}px`;
+    };
+    fit();
+    // Re-fit after web fonts settle — text metrics differ from the fallback.
+    void document.fonts?.ready.then(fit);
+  }, [draft]);
 
   return (
     <textarea
+      ref={ref}
       value={draft}
       onChange={(e) => setDraft(e.target.value)}
       onBlur={() => {
         if (draft !== value) void updateStep(stepId, { description: draft });
       }}
-      rows={6}
+      rows={3}
       className="-mx-1 w-[calc(100%+0.5rem)] resize-none rounded-md border border-transparent bg-transparent px-1 py-0.5 text-sm leading-relaxed text-foreground outline-none transition-colors hover:border-border/60 focus:border-primary focus:bg-background focus:px-3 focus:py-2 focus:ring-1 focus:ring-primary/40"
     />
   );
