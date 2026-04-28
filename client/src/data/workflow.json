@@ -46,7 +46,7 @@
       "position": { "x": 720, "y": 160 },
       "primaryOutcome": { "label": "Politely decline and close the call", "icon": "PhoneOff" },
       "secondaryOutcome": { "label": "Escalate to human agent", "icon": "UserPlus" },
-      "connections": ["step_close", "step_route_human"],
+      "connections": ["step_route_human", "step_close"],
       "likes": 1,
       "dislikes": 0
     },
