@@ -40,7 +40,7 @@ export const StepPatchSchema = z
     description: z.string().optional(),
     position: PositionSchema.optional(),
   })
-  .refine((o) => Object.keys(o).length > 0, {
+  .refine((o) => Object.values(o).some((v) => v !== undefined), {
     message: 'At least one of title, description, or position is required',
   });
 
@@ -109,11 +109,17 @@ export const CallRecordSchema = z.object({
 // ── Query params ─────────────────────────────────────────────
 
 export const WeekQuerySchema = z.object({
-  week: z.string().regex(/^\d{4}-W\d{2}$/, 'Expected ISO week (e.g. 2025-W29)'),
+  // ISO 8601 week: W01–W53
+  week: z
+    .string()
+    .regex(/^\d{4}-W(0[1-9]|[1-4]\d|5[0-3])$/, 'Expected ISO week (e.g. 2025-W29)'),
 });
 
 export const MonthQuerySchema = z.object({
-  month: z.string().regex(/^\d{4}-\d{2}$/, 'Expected ISO month (e.g. 2025-06)'),
+  // ISO 8601 month: 01–12
+  month: z
+    .string()
+    .regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'Expected ISO month (e.g. 2025-06)'),
 });
 
 export const RangeQuerySchema = z.object({
