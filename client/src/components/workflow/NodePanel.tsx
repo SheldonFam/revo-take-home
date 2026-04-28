@@ -55,7 +55,7 @@ interface PanelBodyProps {
 
 function PanelBody({ step, workflow, onClose }: PanelBodyProps) {
   return (
-    <Tabs defaultValue="Purpose" className="flex h-full flex-col">
+    <Tabs key={step.id} defaultValue="Purpose" className="flex h-full flex-col">
       <PanelHeader step={step} onClose={onClose} />
       <div className="flex-1 overflow-y-auto px-5 py-4">
         <TabsContent value="Purpose" className="mt-0">
@@ -217,7 +217,7 @@ function DescriptionField({ stepId, value }: StepFieldProps) {
         if (draft !== value) void updateStep(stepId, { description: draft });
       }}
       rows={3}
-      className="resize-none text-sm leading-relaxed [field-sizing:content] focus-visible:border-primary focus-visible:ring-primary/40"
+      className="min-h-0 resize-none text-sm leading-relaxed [field-sizing:content] focus-visible:border-primary focus-visible:ring-primary/40"
     />
   );
 }
