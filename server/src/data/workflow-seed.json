@@ -1,0 +1,78 @@
+{
+  "id": "wf_inbound",
+  "name": "Handle Ineligible Caller",
+  "steps": [
+    {
+      "id": "step_trigger",
+      "kind": "trigger",
+      "title": "Incoming Call Initiated",
+      "description": "A new inbound call is received and routed into the workflow.",
+      "position": { "x": 360, "y": 0 },
+      "primaryOutcome": { "label": "Begin call qualification", "icon": "ArrowRight" },
+      "secondaryOutcome": null,
+      "connections": ["step_qualify"],
+      "likes": 0,
+      "dislikes": 0
+    },
+    {
+      "id": "step_qualify",
+      "kind": "process",
+      "title": "Call Qualification",
+      "description": "Identify caller intent and basic details.",
+      "position": { "x": 80, "y": 160 },
+      "primaryOutcome": { "label": "Eligible — proceed", "icon": "CheckCircle2" },
+      "secondaryOutcome": { "label": "Ineligible — explain", "icon": "AlertCircle" },
+      "connections": ["step_valid", "step_ineligible"],
+      "likes": 0,
+      "dislikes": 0
+    },
+    {
+      "id": "step_valid",
+      "kind": "process",
+      "title": "Process Valid Call",
+      "description": "Route caller to appropriate service flow.",
+      "position": { "x": 360, "y": 320 },
+      "primaryOutcome": { "label": "Close call", "icon": "PhoneOff" },
+      "secondaryOutcome": { "label": "Escalate to human", "icon": "UserPlus" },
+      "connections": ["step_close", "step_route_human"],
+      "likes": 2,
+      "dislikes": 0
+    },
+    {
+      "id": "step_ineligible",
+      "kind": "process",
+      "title": "Handle Ineligible Caller",
+      "description": "Politely inform the caller that they are not eligible at this time, explain the reason clearly without using technical or negative language, and provide guidance on what they can do next.\n\nThe agent should de-escalate, acknowledge the caller's concerns, and offer clear next steps before closing the call.",
+      "position": { "x": 720, "y": 160 },
+      "primaryOutcome": { "label": "Politely decline and close the call", "icon": "PhoneOff" },
+      "secondaryOutcome": { "label": "Escalate to human agent", "icon": "UserPlus" },
+      "connections": ["step_route_human", "step_close"],
+      "likes": 1,
+      "dislikes": 0
+    },
+    {
+      "id": "step_route_human",
+      "kind": "process",
+      "title": "Route to Human",
+      "description": "Transfer caller to available human agent.",
+      "position": { "x": 80, "y": 480 },
+      "primaryOutcome": { "label": "Hand off to agent", "icon": "UserCheck" },
+      "secondaryOutcome": null,
+      "connections": ["step_close"],
+      "likes": 2,
+      "dislikes": 1
+    },
+    {
+      "id": "step_close",
+      "kind": "terminal",
+      "title": "Close Call",
+      "description": "Politely decline and terminate the call.",
+      "position": { "x": 540, "y": 480 },
+      "primaryOutcome": { "label": "End call", "icon": "PhoneOff" },
+      "secondaryOutcome": null,
+      "connections": [],
+      "likes": 0,
+      "dislikes": 0
+    }
+  ]
+}
