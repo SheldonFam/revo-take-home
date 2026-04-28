@@ -92,7 +92,7 @@ export const store = {
   },
   getCallsHandled: (range: CallsHandledRange): CallsHandledPoint[] => {
     const map = metricsSeed.callsHandled as Record<CallsHandledRange, CallsHandledPoint[]>;
-    return map[range];
+    return map[range] ?? [];
   },
   getRecentConversations: (limit?: number): CallRecord[] => {
     const all = callsSeed as CallRecord[];
