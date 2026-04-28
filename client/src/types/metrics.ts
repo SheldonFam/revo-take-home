@@ -1,5 +1,5 @@
 export interface SummaryMetric {
-  key: 'activeUsers' | 'freeCoordinates' | 'promptProcessing' | 'retryLinks';
+  key: 'foodDelivery' | 'tableReservation' | 'paymentProcessing' | 'otherFlows';
   label: string;
   value: number;
   trendPct: number;

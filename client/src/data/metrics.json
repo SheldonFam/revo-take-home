@@ -1,15 +1,15 @@
 {
   "summary": [
-    { "key": "activeUsers",      "label": "Active Users",      "value": 87, "trendPct": 12,  "subLabel": "calls" },
-    { "key": "freeCoordinates",  "label": "Free Coordinates",  "value": 18, "trendPct": 6,   "subLabel": "calls" },
-    { "key": "promptProcessing", "label": "Prompt Processing", "value": 8,  "trendPct": -2,  "subLabel": "calls" },
-    { "key": "retryLinks",       "label": "Retry Links",       "value": 3,  "trendPct": 1,   "subLabel": "calls" }
+    { "key": "foodDelivery",      "label": "Food Delivery",      "value": 87, "trendPct": 19, "subLabel": "calls" },
+    { "key": "tableReservation",  "label": "Table Reservation",  "value": 18, "trendPct": 7,  "subLabel": "calls" },
+    { "key": "paymentProcessing", "label": "Payment Processing", "value": 8,  "trendPct": 11, "subLabel": "calls" },
+    { "key": "otherFlows",        "label": "Other Flows",        "value": 3,  "trendPct": -1, "subLabel": "calls" }
   ],
   "flowDistribution": [
-    { "flow": "Food delivery",      "pct": 0.46, "color": "hsl(var(--chart-1))" },
-    { "flow": "Table reservation",  "pct": 0.28, "color": "hsl(var(--chart-2))" },
-    { "flow": "Payment processing", "pct": 0.18, "color": "hsl(var(--chart-3))" },
-    { "flow": "Other flows",        "pct": 0.08, "color": "hsl(var(--chart-4))" }
+    { "flow": "Food delivery",      "pct": 0.62, "color": "hsl(252, 82%, 65%)" },
+    { "flow": "Table reservation",  "pct": 0.24, "color": "hsl(340, 82%, 68%)" },
+    { "flow": "Payment processing", "pct": 0.11, "color": "hsl(45, 95%, 62%)" },
+    { "flow": "Other flows",        "pct": 0.03, "color": "hsl(240, 10%, 55%)" }
   ],
   "callDistribution": [
     { "day": "Mon", "hourly": [1,2,3,2,4,6,8,9,7,5,4,3,2,2,3,4,5,6,7,8,7,5,3,2] },
