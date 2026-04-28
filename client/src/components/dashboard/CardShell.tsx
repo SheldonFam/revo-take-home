@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 interface CardShellProps {
@@ -10,7 +11,7 @@ interface CardShellProps {
 
 export function CardShell({ title, action, className, children }: CardShellProps) {
   return (
-    <section className={cn('rounded-xl border border-border bg-card p-5', className)}>
+    <Card className={cn('rounded-xl border-border p-5 shadow-none', className)}>
       {(title || action) && (
         <header className="mb-4 flex items-center justify-between">
           {title && (
@@ -22,6 +23,6 @@ export function CardShell({ title, action, className, children }: CardShellProps
         </header>
       )}
       {children}
-    </section>
+    </Card>
   );
 }

@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import type { CallStatus } from '@/types';
 
@@ -12,15 +13,9 @@ const COPY: Record<CallStatus, string> = {
 };
 
 export function StatusBadge({ status, className }: StatusBadgeProps) {
+  const variant = status === 'success' ? 'success' : 'warning';
   return (
-    <span
-      className={cn(
-        'inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium',
-        status === 'success' && 'bg-success/15 text-success',
-        status === 'hang_up' && 'bg-warning/15 text-warning',
-        className,
-      )}
-    >
+    <Badge variant={variant} className={cn('gap-1.5 font-medium', className)}>
       <span
         className={cn(
           'h-1.5 w-1.5 rounded-full',
@@ -28,6 +23,6 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
         )}
       />
       {COPY[status]}
-    </span>
+    </Badge>
   );
 }

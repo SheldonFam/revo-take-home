@@ -83,12 +83,16 @@ export const api = {
     return delay(metricsSeed.summary as SummaryMetric[]);
   },
 
-  async getFlowDistribution(): Promise<FlowSlice[]> {
-    return delay(metricsSeed.flowDistribution as FlowSlice[]);
+  async getFlowDistribution(week: string): Promise<FlowSlice[]> {
+    const map = metricsSeed.flowDistribution as Record<string, FlowSlice[]>;
+    const data = map[week] ?? Object.values(map)[0]!;
+    return delay(data);
   },
 
-  async getCallDistribution(_week: string): Promise<CallDistribution[]> {
-    return delay(metricsSeed.callDistribution as CallDistribution[]);
+  async getCallDistribution(week: string): Promise<CallDistribution[]> {
+    const map = metricsSeed.callDistribution as Record<string, CallDistribution[]>;
+    const data = map[week] ?? Object.values(map)[0]!;
+    return delay(data);
   },
 
   async getCallsHandled(range: CallsHandledRange): Promise<CallsHandledPoint[]> {
@@ -97,12 +101,14 @@ export const api = {
   },
 
   async getTotalDuration(
-    _week: string,
+    week: string,
   ): Promise<{ totalSeconds: number; byDay: DurationByDay[] }> {
-    return delay({
-      totalSeconds: metricsSeed.duration.totalSeconds,
-      byDay: metricsSeed.duration.byDay as DurationByDay[],
-    });
+    const map = metricsSeed.duration as Record<
+      string,
+      { totalSeconds: number; byDay: DurationByDay[] }
+    >;
+    const data = map[week] ?? Object.values(map)[0]!;
+    return delay(data);
   },
 
   async getRecentConversations(limit?: number): Promise<CallRecord[]> {

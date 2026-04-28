@@ -18,7 +18,7 @@ const RANGES = ['Week · 12–19 Jul 2025', 'Week · 5–11 Jul 2025'] as const;
 
 export function FlowDistributionCard() {
   const [range, setRange] = useState<(typeof RANGES)[number]>(RANGES[0]);
-  const state = useAsync(() => api.getFlowDistribution(), []);
+  const state = useAsync(() => api.getFlowDistribution(range), [range]);
 
   const slices = useMemo(() => (state.status === 'ready' ? state.data : []), [state]);
 
