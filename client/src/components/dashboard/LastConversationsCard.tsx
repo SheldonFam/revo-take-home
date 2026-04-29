@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { api } from '@/lib/api';
 import { useAsync } from '@/hooks/useAsync';
@@ -7,19 +7,31 @@ import { Button } from '@/components/ui/button';
 import { CardShell } from './CardShell';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { formatTimeAgo } from '@/lib/format';
+import { useSearchStore } from '@/stores/search';
 
 const COLLAPSED_LIMIT = 8;
 
 export function LastConversationsCard() {
   const [expanded, setExpanded] = useState(false);
   const state = useAsync(() => api.getRecentConversations(), []);
-  const rows =
-    state.status === 'ready'
-      ? expanded
-        ? state.data
-        : state.data.slice(0, COLLAPSED_LIMIT)
-      : [];
-  const canExpand = state.status === 'ready' && state.data.length > COLLAPSED_LIMIT;
+  const query = useSearchStore((s) => s.query);
+
+  const filtered = useMemo(() => {
+    if (state.status !== 'ready') return [];
+    const q = query.trim().toLowerCase();
+    if (!q) return state.data;
+    return state.data.filter((row) => {
+      const status = row.status.replace('_', ' ').toLowerCase();
+      return (
+        row.flow.toLowerCase().includes(q) ||
+        row.subscription.toLowerCase().includes(q) ||
+        status.includes(q)
+      );
+    });
+  }, [state, query]);
+
+  const rows = expanded ? filtered : filtered.slice(0, COLLAPSED_LIMIT);
+  const canExpand = filtered.length > COLLAPSED_LIMIT;
 
   return (
     <CardShell
@@ -59,16 +71,26 @@ export function LastConversationsCard() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.id} className="border-t border-border">
-                <td className="py-2 text-foreground">{row.flow}</td>
-                <td className="py-2 text-muted-foreground tabular-nums">{row.subscription}</td>
-                <td className="py-2 text-muted-foreground">{formatTimeAgo(row.occurredAt)}</td>
-                <td className="py-2">
-                  <StatusBadge status={row.status} />
+            {rows.length === 0 ? (
+              <tr className="border-t border-border">
+                <td colSpan={4} className="py-6 text-center text-muted-foreground">
+                  {query.trim()
+                    ? `No conversations match "${query.trim()}"`
+                    : 'No conversations yet'}
                 </td>
               </tr>
-            ))}
+            ) : (
+              rows.map((row) => (
+                <tr key={row.id} className="border-t border-border">
+                  <td className="py-2 text-foreground">{row.flow}</td>
+                  <td className="py-2 text-muted-foreground tabular-nums">{row.subscription}</td>
+                  <td className="py-2 text-muted-foreground">{formatTimeAgo(row.occurredAt)}</td>
+                  <td className="py-2">
+                    <StatusBadge status={row.status} />
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       )}
