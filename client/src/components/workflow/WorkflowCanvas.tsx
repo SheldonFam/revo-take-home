@@ -14,7 +14,7 @@ import {
 import '@xyflow/react/dist/style.css';
 
 import { useWorkflowStore } from '@/stores/workflow';
-import type { Step } from '@/types';
+import type { Step } from '@revolab/shared';
 import { TriggerNode } from './TriggerNode';
 import { ProcessNode } from './ProcessNode';
 import { ZoomControls } from './ZoomControls';

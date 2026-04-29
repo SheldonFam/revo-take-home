@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import type { CallStatus } from '@/types';
+import type { CallStatus } from '@revolab/shared';
 
 interface StatusBadgeProps {
   status: CallStatus;

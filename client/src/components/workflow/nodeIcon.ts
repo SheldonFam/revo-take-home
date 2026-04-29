@@ -6,7 +6,7 @@ import {
   Workflow,
   type LucideIcon,
 } from 'lucide-react';
-import type { Step } from '@/types';
+import type { Step } from '@revolab/shared';
 
 export interface NodeVisual {
   Icon: LucideIcon;

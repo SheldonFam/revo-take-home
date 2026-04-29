@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { api } from '@/lib/api';
-import type { Step, Workflow } from '@/types';
+import type { Step, Workflow } from '@revolab/shared';
 
 interface WorkflowState {
   workflow: Workflow | null;

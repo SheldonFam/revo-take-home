@@ -11,7 +11,7 @@ import type {
   CallsHandledPoint,
   CallsHandledRange,
   DurationByDay,
-} from '@/types';
+} from '@revolab/shared';
 
 const STORAGE_KEY = 'revolab:workflow:v1';
 const FAKE_LATENCY_MS = 80;

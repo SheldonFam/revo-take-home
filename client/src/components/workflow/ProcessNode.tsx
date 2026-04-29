@@ -1,5 +1,5 @@
 import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
-import type { Step } from '@/types';
+import type { Step } from '@revolab/shared';
 import { StepCard } from './StepCard';
 
 export type ProcessNodeType = Node<{ step: Step }, 'process'>;

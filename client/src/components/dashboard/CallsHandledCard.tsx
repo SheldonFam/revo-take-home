@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CardShell } from './CardShell';
-import type { CallsHandledRange } from '@/types';
+import type { CallsHandledRange } from '@revolab/shared';
 
 const RANGES: { value: CallsHandledRange; label: string; sublabel: string }[] = [
   { value: 'today', label: 'Today', sublabel: 'calls today' },

@@ -1,6 +1,6 @@
 import { Triangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { SummaryMetric } from '@/types';
+import type { SummaryMetric } from '@revolab/shared';
 import { formatTrend } from '@/lib/format';
 
 interface KPICardProps {
