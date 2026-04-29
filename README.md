@@ -29,7 +29,7 @@ All endpoints are JSON in / out, under `/api/v1/`.
 | GET | `/analytics/flow-distribution` | `?week=2025-W29` | `FlowSlice[]` |
 | GET | `/analytics/call-distribution` | `?month=2025-06` | `CallDistribution[]` |
 | GET | `/analytics/calls-handled` | `?range=today\|7d\|30d` | `CallsHandledPoint[]` |
-| GET | `/analytics/total-duration` | `?week=2026-W17` | `TotalDuration` |
+| GET | `/analytics/total-duration` | `?week=2026-W17` | `TotalDurationResponse` |
 | GET | `/calls` | `?limit=10` | `CallRecord[]` |
 
 Error responses use `{ error: { code, message, fields? } }`. Codes: `validation_error` (400), `not_found` (404), `internal_error` (500).
@@ -49,7 +49,7 @@ curl -X PATCH \
 
 ## What's intentionally out of scope
 
-Auth, rate limiting, request logging, real database (file-based persistence is the take-home choice), Docker, CI, deployment, automated tests (manual smoke tests in this README cover the happy paths), production build (`pnpm dev` is the only run path), mobile responsive (`<1280px`), and node creation/deletion/edge editing in the workflow builder.
+Auth, rate limiting, request logging, real database (file-based persistence is the take-home choice), Docker, CI, deployment, automated tests (the two `curl` examples above cover the writable path; everything else was smoke-tested manually during development), production build (`pnpm dev` is the only run path), mobile responsive (`<1280px`), and node creation/deletion/edge editing in the workflow builder.
 
 ## Project layout
 
