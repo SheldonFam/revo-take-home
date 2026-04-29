@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { api } from '@/lib/api';
-import type { Step, Workflow } from '@/types';
+import type { Step, Workflow } from '@revolab/shared';
 
 interface WorkflowState {
   workflow: Workflow | null;
@@ -115,7 +115,9 @@ export const useWorkflowStore = create<WorkflowState>()(
               workflow: {
                 ...state.workflow,
                 steps: state.workflow.steps.map((s) =>
-                  s.id === stepId && s.position === position
+                  s.id === stepId &&
+                  s.position.x === position.x &&
+                  s.position.y === position.y
                     ? { ...s, position: previousPosition }
                     : s,
                 ),

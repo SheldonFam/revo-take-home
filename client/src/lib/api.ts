@@ -1,118 +1,112 @@
-import workflowSeed from '@/data/workflow.json';
-import callsSeed from '@/data/calls.json';
-import metricsSeed from '@/data/metrics.json';
-import type {
-  Workflow,
-  Step,
-  CallRecord,
-  SummaryMetric,
-  FlowSlice,
-  CallDistribution,
-  CallsHandledPoint,
-  CallsHandledRange,
-  DurationByDay,
-} from '@/types';
+import {
+  WorkflowSchema,
+  StepSchema,
+  StepPatchSchema,
+  SummaryMetricSchema,
+  FlowSliceSchema,
+  CallDistributionSchema,
+  CallsHandledPointSchema,
+  TotalDurationResponseSchema,
+  CallRecordSchema,
+  ApiErrorSchema,
+  type StepPatch,
+  type CallsHandledRange,
+  type Position,
+} from '@revolab/shared';
+import { z } from 'zod';
+import { ApiError } from './apiError';
 
-const STORAGE_KEY = 'revolab:workflow:v1';
-const FAKE_LATENCY_MS = 80;
+const API_BASE = '/api/v1';
 
-function delay<T>(value: T): Promise<T> {
-  return new Promise((resolve) => setTimeout(() => resolve(value), FAKE_LATENCY_MS));
-}
-
-function loadWorkflowFromStorage(): Workflow {
-  if (typeof window === 'undefined') return workflowSeed as Workflow;
+async function readError(res: Response): Promise<ApiError> {
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return workflowSeed as Workflow;
-    const parsed = JSON.parse(raw) as Workflow;
-    if (!parsed?.id || !Array.isArray(parsed.steps)) throw new Error('shape');
-    return parsed;
+    const parsed = ApiErrorSchema.parse(await res.json());
+    return new ApiError(
+      parsed.error.message,
+      parsed.error.code,
+      res.status,
+      parsed.error.fields,
+    );
   } catch {
-    return workflowSeed as Workflow;
+    return new ApiError(`HTTP ${res.status}`, 'internal_error', res.status);
   }
 }
 
-function saveWorkflowToStorage(workflow: Workflow): void {
-  if (typeof window === 'undefined') return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(workflow));
+async function get<T>(path: string, schema: z.ZodSchema<T>): Promise<T> {
+  const res = await fetch(`${API_BASE}${path}`);
+  if (!res.ok) throw await readError(res);
+  return schema.parse(await res.json());
+}
+
+async function patch<T>(
+  path: string,
+  body: unknown,
+  schema: z.ZodSchema<T>,
+): Promise<T> {
+  const res = await fetch(`${API_BASE}${path}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw await readError(res);
+  return schema.parse(await res.json());
 }
 
 export const api = {
-  async listWorkflows(): Promise<Workflow[]> {
-    return delay([loadWorkflowFromStorage()]);
-  },
+  getWorkflow: (id: string) => get(`/workflows/${id}`, WorkflowSchema),
 
-  async getWorkflow(id: string): Promise<Workflow> {
-    const wf = loadWorkflowFromStorage();
-    if (wf.id !== id) throw new Error(`Workflow not found: ${id}`);
-    return delay(wf);
-  },
-
-  async updateStep(
+  updateStep: (
     workflowId: string,
     stepId: string,
-    patch: Partial<Pick<Step, 'title' | 'description'>>,
-  ): Promise<Step> {
-    const wf = loadWorkflowFromStorage();
-    if (wf.id !== workflowId) throw new Error(`Workflow not found: ${workflowId}`);
-    const idx = wf.steps.findIndex((s) => s.id === stepId);
-    if (idx === -1) throw new Error(`Step not found: ${stepId}`);
-    const current = wf.steps[idx]!;
-    const next: Step = { ...current, ...patch };
-    wf.steps[idx] = next;
-    saveWorkflowToStorage(wf);
-    return delay(next);
-  },
+    patch_: Pick<StepPatch, 'title' | 'description'>,
+  ) =>
+    patch(
+      `/workflows/${workflowId}/steps/${stepId}`,
+      patch_,
+      StepSchema,
+    ),
 
-  async moveStep(
-    workflowId: string,
-    stepId: string,
-    position: { x: number; y: number },
-  ): Promise<void> {
-    const wf = loadWorkflowFromStorage();
-    if (wf.id !== workflowId) throw new Error(`Workflow not found: ${workflowId}`);
-    const idx = wf.steps.findIndex((s) => s.id === stepId);
-    if (idx === -1) throw new Error(`Step not found: ${stepId}`);
-    wf.steps[idx] = { ...wf.steps[idx]!, position };
-    saveWorkflowToStorage(wf);
-    return delay(undefined);
-  },
+  moveStep: (workflowId: string, stepId: string, position: Position) =>
+    patch(
+      `/workflows/${workflowId}/steps/${stepId}`,
+      { position },
+      StepSchema,
+    ),
 
-  async getSummaryMetrics(): Promise<SummaryMetric[]> {
-    return delay(metricsSeed.summary as SummaryMetric[]);
-  },
+  getSummaryMetrics: () => get('/analytics/summary', SummaryMetricSchema.array()),
 
-  async getFlowDistribution(week: string): Promise<FlowSlice[]> {
-    const map = metricsSeed.flowDistribution as Record<string, FlowSlice[]>;
-    const data = map[week] ?? Object.values(map)[0]!;
-    return delay(data);
-  },
+  getFlowDistribution: (week: string) =>
+    get(
+      `/analytics/flow-distribution?week=${encodeURIComponent(week)}`,
+      FlowSliceSchema.array(),
+    ),
 
-  async getCallDistribution(week: string): Promise<CallDistribution[]> {
-    const map = metricsSeed.callDistribution as Record<string, CallDistribution[]>;
-    const data = map[week] ?? Object.values(map)[0]!;
-    return delay(data);
-  },
+  getCallDistribution: (month: string) =>
+    get(
+      `/analytics/call-distribution?month=${encodeURIComponent(month)}`,
+      CallDistributionSchema.array(),
+    ),
 
-  async getCallsHandled(range: CallsHandledRange): Promise<CallsHandledPoint[]> {
-    const data = metricsSeed.callsHandled[range];
-    return delay(data as CallsHandledPoint[]);
-  },
+  getCallsHandled: (range: CallsHandledRange) =>
+    get(
+      `/analytics/calls-handled?range=${encodeURIComponent(range)}`,
+      CallsHandledPointSchema.array(),
+    ),
 
-  async getTotalDuration(
-    week: string,
-  ): Promise<{ totalSeconds: number; byDay: DurationByDay[] }> {
-    const map = metricsSeed.duration as Record<
-      string,
-      { totalSeconds: number; byDay: DurationByDay[] }
-    >;
-    const data = map[week] ?? Object.values(map)[0]!;
-    return delay(data);
-  },
+  getTotalDuration: (week: string) =>
+    get(
+      `/analytics/total-duration?week=${encodeURIComponent(week)}`,
+      TotalDurationResponseSchema,
+    ),
 
-  async getRecentConversations(limit?: number): Promise<CallRecord[]> {
-    const all = callsSeed as CallRecord[];
-    return delay(typeof limit === 'number' ? all.slice(0, limit) : all);
-  },
+  getRecentConversations: (limit?: number) =>
+    get(
+      typeof limit === 'number' ? `/calls?limit=${limit}` : '/calls',
+      CallRecordSchema.array(),
+    ),
 };
+
+// StepPatchSchema is exported here so callers (e.g. tests, devtools) can
+// validate patches client-side before sending. Not used by the api object
+// itself — server is the validation source of truth.
+export { StepPatchSchema };

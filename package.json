@@ -3,16 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@9.12.0",
-  "engines": {
-    "node": ">=20",
-    "pnpm": ">=9"
-  },
+  "engines": { "node": ">=20", "pnpm": ">=9" },
   "scripts": {
-    "dev": "pnpm --filter client dev",
-    "build": "pnpm --filter client build",
-    "lint": "pnpm --filter client lint",
-    "typecheck": "pnpm --filter client typecheck",
-    "format": "pnpm --filter client format",
-    "preview": "pnpm --filter client preview"
+    "dev": "concurrently -n client,server -c blue,green \"pnpm -C client dev\" \"pnpm -C server dev\"",
+    "dev:client": "pnpm -C client dev",
+    "dev:server": "pnpm -C server dev",
+    "build": "pnpm -C client build",
+    "lint": "pnpm -C client lint",
+    "typecheck": "pnpm -C client typecheck",
+    "format": "pnpm -C client format",
+    "preview": "pnpm -C client preview"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

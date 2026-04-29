@@ -14,7 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { useWorkflowStore } from '@/stores/workflow';
-import type { Outcome, Step, Workflow } from '@/types';
+import type { Outcome, Step, Workflow } from '@revolab/shared';
 import { nodeVisual } from './nodeIcon';
 
 const TABS = ['Purpose', 'Behavior', 'Rules', 'Resources'] as const;

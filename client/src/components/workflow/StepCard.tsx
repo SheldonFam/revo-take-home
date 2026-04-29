@@ -1,6 +1,6 @@
 import { ThumbsDown, ThumbsUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { Step } from '@/types';
+import type { Step } from '@revolab/shared';
 import { nodeVisual } from './nodeIcon';
 
 interface StepCardProps {
