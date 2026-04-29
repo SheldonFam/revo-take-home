@@ -115,7 +115,9 @@ export const useWorkflowStore = create<WorkflowState>()(
               workflow: {
                 ...state.workflow,
                 steps: state.workflow.steps.map((s) =>
-                  s.id === stepId && s.position === position
+                  s.id === stepId &&
+                  s.position.x === position.x &&
+                  s.position.y === position.y
                     ? { ...s, position: previousPosition }
                     : s,
                 ),
